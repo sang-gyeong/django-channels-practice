@@ -37,12 +37,8 @@ SECRET_KEY = 'oi+1z+xzbg6p92t)8j2dtem8v#5a_rsdw9nwmx$gygimx%^os)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
-
-
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
 
 # Application definition
 
