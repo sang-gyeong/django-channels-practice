@@ -11,22 +11,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django
-import django_heroku
-from channels.routing import get_default_application
 
-
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
-django.setup()
-application = get_default_application()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -37,8 +28,7 @@ SECRET_KEY = 'oi+1z+xzbg6p92t)8j2dtem8v#5a_rsdw9nwmx$gygimx%^os)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
-
+ALLOWED_HOSTS = []
 
 
 # Application definition
