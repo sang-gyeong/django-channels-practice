@@ -4,25 +4,130 @@
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
+    <link rel="stylesheet" href="./room.css">
+    <style>
+            body {
+            width: 375px;
+            height: 667px;
+            background-color: white;
+            padding: 0;
+            margin: 0;
+            color: #404040;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .host-name {
+            height: 60px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 15.5px;
+            font-weight: 600;
+        }
+
+        #chat-log {
+            background-color: white;
+            width: 100%;
+            height: 520px;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 1.5px 1.5px 7px 1px lightgrey;
+        }
+
+        #chat-input-box {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+            box-shadow: 1px 1px 5px 1px lightgrey;
+        }
+
+        #chat-message-input {
+            width: 80%;
+            border: 1px solid lightgrey;
+            box-sizing: border-box;
+            height: 50px;
+            font-size: 15px;
+            color: #404040;
+            outline: none;
+            border: none;
+        }
+
+        #chat-message-submit {
+            width: 50px;
+            height: 50px;
+            border: none;
+            outline : none;
+        }
+
+        #message {
+            background-color: #ffeeed;
+            margin-bottom: 13px;
+            border-radius: 16px;
+            padding: 13px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        div.log-item:nth-child(2n)>.img {
+            display: none;
+        }
+
+        div.log-item:nth-child(2n) {
+            justify-content: flex-end;
+        }
+
+        div.log-item:nth-child(2n) #message {
+            background-color: #ff667a;
+            color: white;
+        }
+
+        .log-item {
+            display: flex;
+        }
+
+        .img {
+            background: url('https://pbs.twimg.com/profile_images/548185522368040960/xS9CNjf__400x400.jpeg');
+            background-size: cover;
+            background-position: center;
+            width: 45px;
+            height: 45px;
+            background-color: red;
+            border-radius: 50%;
+            margin-right: 17px;
+        }
+    </style>
 </head>
 
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
-    <input id="chat-message-input" type="text" size="100"/><br/>
-    <input id="chat-message-submit" type="button" value="Send"/>
-</body>
+    <div class="host-name"></div>
+    <div id="chat-log"></div>
+      <div id="chat-input-box">
+        <input id="chat-message-input" type="text" size="100"/>
+        <input id="chat-message-submit" type="button" value="Send"/>
+     </div>
 
 <script>
     var roomName = {{ room_name_json }};
-
+    var hostName = roomName.split('To')[1];
+    console.log(hostName)
+    document.querySelector('.host-name').innerText = hostName;
     var chatSocket = new WebSocket(
         'ws://' + window.location.host +
         '/ws/chat/' + roomName + '/');
 
+    console.log(hostName);
+
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        document.querySelector('#chat-log').innerHTML += `<div class="log-item"><div class="img"></div><div id="message">${message}</div><br/></div>`
     };
 
     chatSocket.onclose = function(e) {
@@ -46,5 +151,7 @@
         messageInputDom.value = '';
     };
 </script>
+</body>
+
 
 </html>
