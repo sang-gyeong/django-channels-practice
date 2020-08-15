@@ -75,15 +75,15 @@
             font-size: 14px;
         }
 
-        div.log-item:nth-child(2n)>.img {
+        div.log-item:nth-child(2n-1)>.img {
             display: none;
         }
 
-        div.log-item:nth-child(2n) {
+        div.log-item:nth-child(2n-1) {
             justify-content: flex-end;
         }
 
-        div.log-item:nth-child(2n) #message {
+        div.log-item:nth-child(2n-1) #message {
             background-color: #ff667a;
             color: white;
         }
@@ -112,7 +112,6 @@
         <input id="chat-message-input" type="text" size="100"/>
         <input id="chat-message-submit" type="button" value="Send"/>
      </div>
-
 <script>
     var roomName = {{ room_name_json }};
     var hostName = roomName.split('To')[1];
